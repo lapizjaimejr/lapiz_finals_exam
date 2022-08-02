@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/theme_cubit.dart';
 import '../screens/recycle_bin_screen.dart';
 import '../screens/tabs_screen.dart';
 import '../test_data.dart';
@@ -8,8 +10,7 @@ class TasksDrawer extends StatelessWidget {
   const TasksDrawer({Key? key}) : super(key: key);
 
   _switchToDarkTheme(BuildContext context, bool isDarkTheme) {
-    if (isDarkTheme) {
-    } else {}
+    BlocProvider.of<ThemeCubit>(context).toggleTheme(value: isDarkTheme);
   }
 
   @override
@@ -49,13 +50,21 @@ class TasksDrawer extends StatelessWidget {
             ),
             const Divider(),
             const Expanded(child: SizedBox()),
-            ListTile(
-              leading: Switch(
-                value: TestData.isDarkTheme,
-                onChanged: (newValue) => _switchToDarkTheme(context, newValue),
-              ),
-              title: const Text('Switch to Dark Theme'),
-              onTap: () => _switchToDarkTheme(context, !TestData.isDarkTheme),
+            BlocBuilder<ThemeCubit, bool>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: Switch(
+                    value: state,
+                    onChanged: (newValue) =>
+                        _switchToDarkTheme(context, newValue),
+                  ),
+                  title: Text(
+                    state ? 'Switch to Light Theme' : 'Switch to Dark Theme',
+                  ),
+                  onTap: () => _switchToDarkTheme(context,
+                      state ? TestData.isDarkTheme : !TestData.isDarkTheme),
+                );
+              },
             ),
             const SizedBox(height: 10),
           ],
