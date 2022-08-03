@@ -20,10 +20,31 @@ class TaskProgress extends TaskEvent {
   final Task task;
 
   TaskProgress({required this.task});
+
+  @override
+  List<Object> get props => [task];
 }
 
 class RemoveTask extends TaskEvent {
   final Task task;
 
   RemoveTask({required this.task});
+
+  @override
+  List<Object> get props => [task];
+}
+
+class RemovedTasks extends TaskEvent {
+  final Task task;
+
+  RemovedTasks({required this.task});
+
+  @override
+  List<Object> get props => [task];
+}
+
+class PermDelAllTasks extends TaskEvent {
+  final Task task;
+
+  PermDelAllTasks({required this.task});
 }

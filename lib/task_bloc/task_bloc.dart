@@ -13,30 +13,47 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<AddTask>((event, emit) {
       final state = this.state;
       emit(
-        TaskState(tasksList: List.from(state.tasksList)..add(event.task)),
+        TaskState(
+          tasksList: List.from(state.tasksList)..add(event.task),
+          completedTasks: state.completedTasks,
+          removedTasks: state.removedTasks,
+          favoriteTasks: state.favoriteTasks,
+        ),
       );
     });
 
     on<TaskProgress>((event, emit) {
       final state = this.state;
       final task = event.task;
-      final int taskPos = state.tasksList.indexOf(task);
 
-      List<Task> tasksList = List.from(state.tasksList)..remove(task);
+      List<Task> tasksList = state.tasksList;
+      List<Task> completedTasks = state.completedTasks;
 
       task.isDone == true
-          ? tasksList.insert(taskPos, task.copyWith(isDone: false))
-          : tasksList.insert(taskPos, task.copyWith(isDone: true));
+          ? tasksList.insert(0, task.copyWith(isDone: false))
+          : tasksList.insert(0, task.copyWith(isDone: true));
 
-      emit(TaskState(tasksList: tasksList));
+      emit(TaskState(tasksList: tasksList, removedTasks: state.removedTasks));
     });
 
     on<RemoveTask>((event, emit) {
       final state = this.state;
 
-      emit(
-          TaskState(tasksList: List.from(state.tasksList)..remove(event.task)));
+      emit(TaskState(
+          tasksList: state.tasksList,
+          removedTasks: List.from(state.removedTasks)..remove(event.task)));
     });
+
+    on<RemovedTasks>((event, emit) {
+      final state = this.state;
+
+      emit(TaskState(
+          tasksList: List.from(state.tasksList)..remove(event.task),
+          removedTasks: List.from(state.removedTasks)
+            ..add(event.task.copyWith(isDeleted: true))));
+    });
+
+    on<PermDelAllTasks>((event, emit) {});
   }
 
   @override

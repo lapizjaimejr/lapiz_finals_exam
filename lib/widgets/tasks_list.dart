@@ -15,49 +15,44 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskBloc, TaskState>(
-      builder: (context, state) {
-        List<Task> tasksList = state.tasksList;
-        return Expanded(
-          child: SingleChildScrollView(
-            child: ExpansionPanelList.radio(
-              children: tasksList
-                  .map(
-                    (task) => ExpansionPanelRadio(
-                      value: task.id!,
-                      headerBuilder: (context, isOpen) => TaskTile(task: task),
-                      body: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(bottom: 16),
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SelectableText.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(
-                                text: 'Title\n',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              TextSpan(text: task.title),
-                              const TextSpan(
-                                text: '\n\nDescription\n',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              TextSpan(text: task.description),
-                            ],
+    return Expanded(
+      child: SingleChildScrollView(
+        child: ExpansionPanelList.radio(
+          children: tasksList
+              .map(
+                (task) => ExpansionPanelRadio(
+                  value: task.id!,
+                  headerBuilder: (context, isOpen) => TaskTile(task: task),
+                  body: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(bottom: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SelectableText.rich(
+                      TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Title\n',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
+                          TextSpan(text: task.title),
+                          const TextSpan(
+                            text: '\n\nDescription\n',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(text: task.description),
+                        ],
                       ),
                     ),
-                  )
-                  .toList(),
-            ),
-          ),
-        );
-      },
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:bloc_finals_exam/cubit/theme_cubit.dart';
 import 'package:bloc_finals_exam/task_bloc/task_bloc.dart';
 import 'package:bloc_finals_exam/theme_bloc/theme_bloc.dart';
 import 'package:flutter/material.dart';

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/theme_cubit.dart';
 import '../screens/recycle_bin_screen.dart';
 import '../screens/tabs_screen.dart';
+import '../task_bloc/task_bloc.dart';
 import '../test_data.dart';
 
 class TasksDrawer extends StatelessWidget {
@@ -44,14 +45,18 @@ class TasksDrawer extends StatelessWidget {
               ),
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Recycle Bin'),
-              trailing: Text('${TestData.removedTasks.length}'),
-              onTap: () => Navigator.pushReplacementNamed(
-                context,
-                RecycleBinScreen.path,
-              ),
+            BlocBuilder<TaskBloc, TaskState>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: const Text('Recycle Bin'),
+                  trailing: Text('${state.removedTasks.length}'),
+                  onTap: () => Navigator.pushReplacementNamed(
+                    context,
+                    RecycleBinScreen.path,
+                  ),
+                );
+              },
             ),
             const Divider(),
             const Expanded(child: SizedBox()),
@@ -68,11 +73,7 @@ class TasksDrawer extends StatelessWidget {
                         ? 'Switch to Light Theme'
                         : 'Switch to Dark Theme',
                   ),
-                  onTap: () => _switchToDarkTheme(
-                      context,
-                      state.isDarkTheme
-                          ? TestData.isDarkTheme
-                          : !TestData.isDarkTheme),
+                  onTap: () => _switchToDarkTheme(context, !state.isDarkTheme),
                 );
               },
             ),
