@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../task_bloc/task_bloc.dart';
-import '../test_data.dart';
 import '../widgets/tasks_list.dart';
 
 class PendingTasksScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class PendingTasksScreen extends StatelessWidget {
               Center(
                 child: Chip(
                   label: Text(
-                    '${state.tasksList.length} Pending | ${TestData.completedTasks.length} Completed',
+                    '${state.tasksList.length} Pending | ${state.completedTasks.length} Completed',
                   ),
                 ),
               ),
