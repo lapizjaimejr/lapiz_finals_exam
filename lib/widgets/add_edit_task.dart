@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/task.dart';
+import '../test_data.dart';
 
 class AddEditTask extends StatefulWidget {
   final Task? task;
@@ -90,6 +91,8 @@ class _AddEditTaskState extends State<AddEditTask> {
                 ElevatedButton(
                   onPressed: _title.isNotEmpty && _description.isNotEmpty
                       ? () {
+                          TestData.pendingTasks.add(
+                              Task(title: _title, description: _description));
                           Navigator.pop(context);
                         }
                       : null,
