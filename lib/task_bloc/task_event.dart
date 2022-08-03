@@ -43,8 +43,13 @@ class RemovedTasks extends TaskEvent {
   List<Object> get props => [task];
 }
 
-class PermDelAllTasks extends TaskEvent {
+class PermDelAllTasks extends TaskEvent {}
+
+class RestoreTask extends TaskEvent {
   final Task task;
 
-  PermDelAllTasks({required this.task});
+  RestoreTask({required this.task});
+
+  @override
+  List<Object> get props => [];
 }

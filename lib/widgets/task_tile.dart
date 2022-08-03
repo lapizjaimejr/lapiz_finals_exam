@@ -85,7 +85,8 @@ class TaskTile extends StatelessWidget {
                     ? context.read<TaskBloc>().add(RemoveTask(task: task))
                     : context.read<TaskBloc>().add(RemovedTasks(task: task));
               },
-              restoreTaskCallback: () => {},
+              restoreTaskCallback: () =>
+                  {context.read<TaskBloc>().add(RestoreTask(task: task))},
             ),
           ],
         ),

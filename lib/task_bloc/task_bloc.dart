@@ -70,7 +70,31 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
             ..add(event.task.copyWith(isDeleted: true))));
     });
 
-    on<PermDelAllTasks>((event, emit) {});
+    on<PermDelAllTasks>((event, emit) {
+      final state = this.state;
+
+      emit(TaskState(
+        tasksList: state.tasksList,
+        completedTasks: state.completedTasks,
+        removedTasks: List.from(state.removedTasks)..clear(),
+        favoriteTasks: state.favoriteTasks,
+      ));
+    });
+
+    on<RestoreTask>((event, emit) {
+      final state = this.state;
+
+      emit(TaskState(
+        tasksList: List.from(state.tasksList)
+          ..insert(
+              0,
+              event.task.copyWith(
+                  isDeleted: false, isDone: false, isFavorite: false)),
+        completedTasks: state.completedTasks,
+        removedTasks: List.from(state.removedTasks)..remove(event.task),
+        favoriteTasks: state.favoriteTasks,
+      ));
+    });
   }
 
   @override
