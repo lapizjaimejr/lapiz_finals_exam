@@ -22,6 +22,24 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       );
     });
 
+    on<EditTask>((event, emit) {
+      final state = this.state;
+
+      if (event.oldTask.isFavorite == true) {
+        state.favoriteTasks
+          ..remove(event.oldTask)
+          ..insert(0, event.editedTask);
+      }
+
+      emit(TaskState(
+          tasksList: List.from(state.tasksList)
+            ..remove(event.oldTask)
+            ..insert(0, event.editedTask),
+          completedTasks: state.completedTasks,
+          removedTasks: state.removedTasks,
+          favoriteTasks: state.favoriteTasks));
+    });
+
     on<TaskProgress>((event, emit) {
       final state = this.state;
       final task = event.task;

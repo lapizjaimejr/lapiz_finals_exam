@@ -16,6 +16,16 @@ class AddTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
+class EditTask extends TaskEvent {
+  final Task oldTask;
+  final Task editedTask;
+
+  EditTask({required this.oldTask, required this.editedTask});
+
+  @override
+  List<Object> get props => [oldTask, editedTask];
+}
+
 class TaskProgress extends TaskEvent {
   final Task task;
 
