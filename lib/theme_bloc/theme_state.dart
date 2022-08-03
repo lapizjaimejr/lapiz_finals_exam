@@ -7,6 +7,16 @@ class ThemeState extends Equatable {
 
   @override
   List<Object> get props => [isDarkTheme];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'isDarkTheme': isDarkTheme,
+    };
+  }
+
+  factory ThemeState.fromMap(Map<String, dynamic> map) {
+    return ThemeState(isDarkTheme: map['isDarkTheme'] ?? false);
+  }
 }
 
 class ThemeBlocInitial extends ThemeState {
