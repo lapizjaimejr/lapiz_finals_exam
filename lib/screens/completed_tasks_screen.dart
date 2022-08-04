@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/task.dart';
 import '../task_bloc/task_bloc.dart';
 import '../widgets/tasks_list.dart';
 
@@ -12,7 +11,7 @@ class CompletedTasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(
       builder: (context, state) {
-        final List<Task> completedTasks = state.completedTasks;
+        // state.completedTasks.clear();
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Column(
@@ -20,11 +19,11 @@ class CompletedTasksScreen extends StatelessWidget {
             children: [
               Center(
                 child: Chip(
-                  label: Text('${completedTasks.length} Tasks'),
+                  label: Text('${state.completedTasks.length} Tasks'),
                 ),
               ),
               const SizedBox(height: 10),
-              TasksList(tasksList: completedTasks),
+              TasksList(tasksList: state.completedTasks),
             ],
           ),
         );

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "scs.usjr" "\0"
-            VALUE "FileDescription", "bloc_finals_exam" "\0"
+            VALUE "FileDescription", "lapiz_finals_exam" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bloc_finals_exam" "\0"
+            VALUE "InternalName", "lapiz_finals_exam" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 scs.usjr. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bloc_finals_exam.exe" "\0"
-            VALUE "ProductName", "bloc_finals_exam" "\0"
+            VALUE "OriginalFilename", "lapiz_finals_exam.exe" "\0"
+            VALUE "ProductName", "lapiz_finals_exam" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -63,3 +63,21 @@ class RestoreTask extends TaskEvent {
   @override
   List<Object> get props => [];
 }
+
+class AddToFavorites extends TaskEvent {
+  final Task task;
+
+  AddToFavorites({required this.task});
+
+  @override
+  List<Object> get props => [];
+}
+
+class RemoveFromFavorites extends TaskEvent {
+  final Task task;
+
+  RemoveFromFavorites({required this.task});
+
+  @override
+  List<Object> get props => [];
+}
