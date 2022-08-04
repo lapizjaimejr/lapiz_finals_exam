@@ -30,8 +30,6 @@ class _AddEditTaskState extends State<AddEditTask> {
     if (task != null) {
       _title = task.title;
       _description = task.description;
-      _id = task.id;
-      _isFavorite = task.isFavorite;
       oldTask = task;
     } else {
       _title = '';
@@ -101,9 +99,10 @@ class _AddEditTaskState extends State<AddEditTask> {
                           final task = Task(
                               title: _title,
                               description: _description,
-                              id: widget.task == null ? null : _id,
-                              isFavorite:
-                                  widget.task == null ? null : _isFavorite);
+                              id: widget.task == null ? null : oldTask.id,
+                              isFavorite: widget.task == null
+                                  ? null
+                                  : oldTask.isFavorite);
 
                           widget.task == null
                               ? context

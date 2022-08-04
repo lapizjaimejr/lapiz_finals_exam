@@ -71,7 +71,13 @@ class TaskTile extends StatelessWidget {
                 onChanged: task.isDeleted!
                     ? null
                     : (value) {
-                        context.read<TaskBloc>().add(TaskProgress(task: task));
+                        task.isDone!
+                            ? context
+                                .read<TaskBloc>()
+                                .add(UncompleteTask(task: task))
+                            : context
+                                .read<TaskBloc>()
+                                .add(CompleteTask(task: task));
                       }),
             PopupMenu(
               task: task,
