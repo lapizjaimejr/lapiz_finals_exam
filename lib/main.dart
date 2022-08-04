@@ -1,4 +1,5 @@
-import 'package:bloc_finals_exam/cubit/theme_cubit.dart';
+import 'package:bloc_finals_exam/task_bloc/task_bloc.dart';
+import 'package:bloc_finals_exam/theme_bloc/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -29,13 +30,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThemeCubit>(
-      create: (_) => ThemeCubit(),
-      child: BlocBuilder<ThemeCubit, bool>(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => TaskBloc()),
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
             title: 'BloC Tasks App',
-            theme: state
+            theme: state.isDarkTheme
                 ? AppThemes.appThemeData[AppTheme.darkMode]
                 : AppThemes.appThemeData[AppTheme.lightMode],
             home: const TabsScreen(),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/task.dart';
+import '../task_bloc/task_bloc.dart';
 
 class AddEditTask extends StatefulWidget {
   final Task? task;
@@ -17,6 +19,9 @@ class AddEditTask extends StatefulWidget {
 class _AddEditTaskState extends State<AddEditTask> {
   late String _title;
   late String _description;
+  late String? _id;
+  late bool? _isFavorite;
+  late Task oldTask;
 
   @override
   void initState() {
@@ -25,6 +30,7 @@ class _AddEditTaskState extends State<AddEditTask> {
     if (task != null) {
       _title = task.title;
       _description = task.description;
+      oldTask = task;
     } else {
       _title = '';
       _description = '';
@@ -90,6 +96,21 @@ class _AddEditTaskState extends State<AddEditTask> {
                 ElevatedButton(
                   onPressed: _title.isNotEmpty && _description.isNotEmpty
                       ? () {
+                          final task = Task(
+                              title: _title,
+                              description: _description,
+                              id: widget.task == null ? null : oldTask.id,
+                              isFavorite: widget.task == null
+                                  ? null
+                                  : oldTask.isFavorite);
+
+                          widget.task == null
+                              ? context
+                                  .read<TaskBloc>()
+                                  .add(AddTask(task: task))
+                              : context.read<TaskBloc>().add(
+                                  EditTask(oldTask: oldTask, editedTask: task));
+
                           Navigator.pop(context);
                         }
                       : null,
